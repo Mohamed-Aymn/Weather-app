@@ -3,16 +3,39 @@ const api = {
     base: "https://api.openweathermap.org/data/2.5/",
 };
 
+let mainContainer = document.querySelector(".contentContainer");
+let landingContainer = document.querySelector(".landingContainer");
+let errorContainer = document.querySelector(".errorContainer");
+let errorMessage = document.querySelector(".errorMessage");
+
+let errorContainerHandler = (errorInput) => {
+    errorContainer.classList.remove("hidden");
+    mainContainer.classList.add("hidden");
+    landingContainer.classList.add("hidden");
+    errorMessage.innerText = `There is no city or country called "${errorInput}"`;
+};
+
 addEventListener("load", () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-        fetch(
-            `${api.base}weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${api.key}`
-        )
-            .then((data) => {
-                return data.json();
-            })
-            .then(displayResults);
-    });
+    mainContainer.classList.add("hidden");
+    navigator.geolocation.getCurrentPosition(
+        // allowed position
+        (position) => {
+            fetch(
+                `${api.base}weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${api.key}`
+            )
+                .then((data) => {
+                    return data.json();
+                })
+                .then(displayResults);
+            landingContainer.classList.add("hidden");
+            mainContainer.classList.remove("hidden");
+        },
+        // denied position
+        () => {
+            // console.log(flase);
+            mainContainer.classList.add("hidden");
+        }
+    );
 });
 
 let searchBar = document.querySelector(".searchBar");
@@ -31,7 +54,16 @@ function getResults(query) {
         .then((data) => {
             return data.json();
         })
-        .then(displayResults);
+        .then((data) => {
+            displayResults(data);
+            errorContainer.classList.add("hidden");
+            if (mainContainer.classList.contains("hidden")) {
+                mainContainer.classList.remove("hidden");
+            }
+        })
+        .catch(() => {
+            errorContainerHandler(query);
+        });
 }
 
 function displayResults(data) {
