@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="/index.css" />
+        <!-- icons -->
+        <script
+            src="https://kit.fontawesome.com/28da361129.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- time handling  -->
+        <script src="https://momentjs.com/downloads/moment.js"></script>
+    </head>
+    <body>
+        <main>
+            <input
+                type="text"
+                placeholder="Search for a city..."
+                class="searchBar"
+            />
+
+            <div class="contentContainer">
+                <div class="city">City Name</div>
+
+                <div class="mainCard">
+                    <img class="icon" />
+                    <div class="temp">0</div>
+                    <div class="weatherState">clear</div>
+                </div>
+
+                <div class="miniCardsContainer">
+                    <div class="miniCard">
+                        <i class="fa-solid fa-wind"></i>
+                        <span>wind</span>
+                        <div class="wind">0</div>
+                    </div>
+                    <div class="miniCard">
+                        <i class="fa-solid fa-droplet"></i>
+                        <span>humidity</span>
+                        <div class="humidity">0</div>
+                    </div>
+                    <div class="miniCard">
+                        <i class="fa-solid fa-right-left"></i>
+                        <span>low / high</span>
+                        <div class="hiLow">0</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="sunriseAndSunsetContainer">
+                        <div class="sunrise">Sunrise: 0</div>
+                        <div class="sunset">Sunset: 0</div>
+                    </div>
+                    <div class="timeAndDateContainer">
+                        <div class="time">Time</div>
+                        <div class="date">Date</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            <div class="contentContainer">
+                <div>Saved cities</div>
+                <ul class="citiesContainer">
+                    <li class="addCity">+ Add This City</li>
+                </ul>
+            </div>
+            -->
+        </main>
+
+        <script src="/index.js"></script>
+    </body>
+</html>

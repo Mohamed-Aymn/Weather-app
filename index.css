@@ -1,0 +1,199 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Tajawal", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f0f5ff;
+    gap: 1em 0;
+    min-height: 100vh;
+    position: relative;
+    transition: 0.5s;
+}
+.searchBar {
+    background-color: transparent;
+    outline: none;
+    border: solid 0.05em rgb(156, 156, 156);
+
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    width: 100%;
+}
+main {
+    width: 90%;
+    max-width: 20em;
+}
+.contentContainer {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.234);
+    background-color: #d2def0;
+    padding: 1em;
+    margin: 1em 0;
+    border: solid 0.05em rgb(156, 156, 156);
+    border-radius: 0.5em;
+}
+.mainInfo {
+    background-color: rgba(211, 211, 211, 0.196);
+}
+.mainContentContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.mainContentContainer div {
+    flex-basis: 50%;
+}
+.weatherIconContainer {
+    height: 8em;
+    width: 8em;
+}
+.mainContentContainer img {
+    top: 0;
+    height: 7em;
+    width: 7em;
+}
+.cityInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 0;
+}
+.leftPart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.city {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+}
+.temp {
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
+    width: fit-content;
+    margin-bottom: -0.1em;
+    text-align: center;
+}
+.tempDetails {
+    font-size: 1rem;
+    font-weight: thin;
+}
+.weatherCondition {
+    font-size: 1rem;
+}
+.time {
+    font-size: 0.9rem;
+}
+.date {
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+.weatherConditionDetialsTitle {
+    margin-bottom: 0.5em;
+}
+.weatherConditionCardsContainer {
+    display: flex;
+    gap: 1em;
+}
+.mainCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 5em;
+    padding: 1em 0;
+}
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.icon {
+    width: 3em;
+    height: 3em;
+}
+.miniCardsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    padding: 1em 0;
+}
+.miniCard {
+    flex-basis: calc(100% / 3);
+    height: 6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.3em;
+    background-color: #f8ffff;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+.miniCard span {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+.miniCard div {
+    margin-top: 0.3em;
+    text-align: center;
+}
+.sunriseAndSunset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.timeAndDateContainer {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    flex-direction: column;
+    gap: 0.1em;
+}
+.sunriseAndSunsetContainer {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 0.1em;
+}
+ul li {
+    list-style: none;
+}
+.sunrise,
+.sunset {
+    font-size: 0.8rem;
+}
+.fa-right-left {
+    transform: rotate(90deg);
+}
+
+/* -------------------------- dark theme styling */
+.darkTheme {
+    background-color: #1a1c20;
+    color: white;
+}
+.darkTheme .miniCard {
+    background-color: #2d2f33;
+}
+.darkTheme .contentContainer {
+    background-color: #101214;
+}
+.darkTheme .searchBar {
+    color: white;
+}
+.darkTheme .searchBar::placeholder {
+    color: rgb(100, 100, 100);
+}
