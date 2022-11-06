@@ -25,9 +25,9 @@
             <div class="landingContainer">
                 <i class="fa-solid fa-map-location fa-5x"></i>
                 <span>
-                    Please allow the website to access the location and open
-                    mobile location if you are using a mobile phone or type the
-                    name of a city or country.
+                    Please allow the website to <b>access your location</b> and
+                    <b>open mobile location</b> if you are using a mobile phone.
+                    <b>OR,</b> type the name of a city or country.
                 </span>
             </div>
 
@@ -36,7 +36,7 @@
                 <span class="errorMessage"> </span>
             </div>
 
-            <div class="contentContainer">
+            <div class="contentContainer hidden">
                 <div class="city">City Name</div>
 
                 <div class="mainCard">
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="miniCardsContainer">
-                    <div class="miniCard">
+                    <div class="miniCard windContainer">
                         <i class="fa-solid fa-wind"></i>
                         <span>wind</span>
                         <div class="wind">0</div>
@@ -56,7 +56,7 @@
                         <span>humidity</span>
                         <div class="humidity">0</div>
                     </div>
-                    <div class="miniCard">
+                    <div class="miniCard hiLowContainer">
                         <i class="fa-solid fa-right-left"></i>
                         <span>low / high</span>
                         <div class="hiLow">0</div>
@@ -85,6 +85,6 @@
             -->
         </main>
 
-        <script src="/index.js"></script>
+        <script type="module" src="/index.js"></script>
     </body>
 </html>
