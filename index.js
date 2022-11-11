@@ -77,17 +77,19 @@ let setHumidity = (data) => {
 
 // time setter
 let time = document.querySelector(".time");
+let timeInterval;
 let setTime = (data) => {
-    setInterval(
-        (function exactTime() {
-            time.innerHTML = `${moment
-                .utc()
-                .add(data.timezone, "seconds")
-                .format("h:m:ss A")}`;
-            return exactTime;
-        })(),
-        1000
-    );
+    if (timeInterval) {
+        clearInterval(timeInterval);
+    }
+    let exactTime = () => {
+        time.innerHTML = `${moment
+            .utc()
+            .add(data.timezone, "seconds")
+            .format("h:m:ss A")}`;
+    };
+    exactTime();
+    timeInterval = setInterval(exactTime, 1000);
 };
 
 // sunrise and sunset setter
@@ -112,20 +114,26 @@ let setDate = (data) => {
 
 // background setter
 let setBackgroundColor = (data) => {
-    let nightTime = parseInt(
+    let sunset = parseInt(
         moment
             .utc(data.sys.sunset, "X")
             .add(data.timezone, "seconds")
-            .format("h")
+            .format("H")
+    );
+    let sunrise = parseInt(
+        moment
+            .utc(data.sys.sunrise, "X")
+            .add(data.timezone, "seconds")
+            .format("H")
     );
     let currentHour = parseInt(
-        moment.utc().add(data.timezone, "seconds").format("h")
+        moment.utc().add(data.timezone, "seconds").format("H")
     );
 
-    if (currentHour >= nightTime) {
-        document.body.classList.add("darkTheme");
-    } else {
+    if (currentHour > sunrise && currentHour < sunset) {
         document.body.classList.remove("darkTheme");
+    } else {
+        document.body.classList.add("darkTheme");
     }
 };
 
@@ -193,40 +201,161 @@ function displayResults(data) {
     setBackgroundColor(data);
 }
 
-// function calcTime(offset) {
-//     d = new Date();
-//     utc = d.getTime() + d.getTimezoneOffset() * 60000;
-//     nd = new Date(utc + 3600000 * offset);
-//     return nd.toLocaleString();
-// }
+// add city handler
+let citiesContainer = document.querySelector(".citiesContainer");
+let addCity = document.querySelector(".addCity");
 
-// date and time
-// setInterval(
-//     (function foo() {
-//         console.log("hello");
-//         return foo;
-//     })(),
-//     1000
-// );
+let isNumber = (str) => {
+    return /^[0-9]+$/.test(str);
+};
+let counter = localStorage.getItem("counter");
+
+// fetch saved cities form local storge
+addEventListener("load", () => {
+    for (var i = 0; i <= localStorage.length - 1; i++) {
+        let key = localStorage.key(i);
+        let val = localStorage.getItem(key);
+
+        if (isNumber(val)) {
+            null;
+        } else {
+            // new city container
+            let newCityContainer = document.createElement("li");
+            document.body.appendChild(newCityContainer);
+            newCityContainer.classList.add("savedCityCard");
+
+            // new city name container
+            let newCity = document.createElement("span");
+            newCity.innerText = `${val}`;
+            document.body.appendChild(newCity);
+            newCityContainer.append(newCity);
+
+            // delete icon container
+            let deleteIconContainer = document.createElement("div");
+            deleteIconContainer.classList.add("deleteIconContainer");
+            document.body.appendChild(deleteIconContainer);
+            newCityContainer.appendChild(deleteIconContainer);
+
+            // delete icon
+            let deleteIcon = document.createElement("i");
+            deleteIcon.classList.add("fa-solid", "fa-x");
+            document.body.appendChild(deleteIcon);
+            deleteIconContainer.append(deleteIcon);
+
+            // add all to the new city container
+            citiesContainer.prepend(newCityContainer);
+
+            // new city card handler
+            newCity.addEventListener("click", () => {
+                getResults(newCity.innerHTML);
+            });
+
+            // delete button hanlder
+            deleteIconContainer.addEventListener("click", () => {
+                citiesContainer.removeChild(newCityContainer);
+                for (var i = 0; i <= localStorage.length - 1; i++) {
+                    let key = localStorage.key(i);
+                    let val = localStorage.getItem(key);
+                    if (newCity.innerText == val) {
+                        localStorage.removeItem(key);
+                        console.log(citiesContainer.childElementCount);
+                        citiesContainer.childElementCount == 1
+                            ? localStorage.setItem("counter", 0)
+                            : null;
+                    }
+                }
+                // show add button if cities number lower than the limit
+                if (citiesContainer.childElementCount < 5) {
+                    addCity.classList.remove("hidden");
+                }
+            });
+        }
+    }
+});
+
+addCity.addEventListener("click", () => {
+    let isExists = false;
+    for (var i = 0; i <= localStorage.length - 1; i++) {
+        let key = localStorage.key(i);
+        let val = localStorage.getItem(key);
+
+        if (val == city.innerHTML.split(",")[0]) {
+            isExists = true;
+            break;
+        }
+    }
+
+    if (citiesContainer.childElementCount === 5) {
+        console.log("you can save only four cities");
+    } else if (isExists === false) {
+        // new city container
+        let newCityContainer = document.createElement("li");
+        document.body.appendChild(newCityContainer);
+        newCityContainer.classList.add("savedCityCard");
+
+        // new city name container
+        let newCity = document.createElement("span");
+        newCity.innerText = `${city.innerHTML.split(",")[0]}`;
+        document.body.appendChild(newCity);
+        newCityContainer.append(newCity);
+
+        // delete icon container
+        let deleteIconContainer = document.createElement("div");
+        deleteIconContainer.classList.add("deleteIconContainer");
+        document.body.appendChild(deleteIconContainer);
+        newCityContainer.appendChild(deleteIconContainer);
+
+        // delete icon
+        let deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-solid", "fa-x");
+        document.body.appendChild(deleteIcon);
+        deleteIconContainer.append(deleteIcon);
+
+        // add all to the new city container
+        citiesContainer.prepend(newCityContainer);
+
+        // add saved city to local storage
+        counter++;
+        localStorage.setItem(
+            "savedCities:" + counter,
+            city.innerHTML.split(",")[0]
+        );
+        localStorage.setItem("counter", counter);
+
+        // new city card handler
+        newCity.addEventListener("click", () => {
+            getResults(newCity.innerHTML);
+        });
+
+        // delete button hanlder
+        deleteIconContainer.addEventListener("click", () => {
+            citiesContainer.removeChild(newCityContainer);
+            for (var i = 0; i <= localStorage.length - 1; i++) {
+                let key = localStorage.key(i);
+                let val = localStorage.getItem(key);
+                if (newCity.innerText == val) {
+                    localStorage.removeItem(key);
+                    citiesContainer.childElementCount == 1
+                        ? localStorage.setItem("counter", 0)
+                        : null;
+                }
+            }
+            // show add button if cities number lower than the limit
+            if (citiesContainer.childElementCount < 5) {
+                addCity.classList.remove("hidden");
+            }
+        });
+
+        // if it is the last element just hide add button
+        if (citiesContainer.childElementCount === 5) {
+            addCity.classList.add("hidden");
+        }
+    } else {
+        console.log("no because it is already exists");
+    }
+});
 
 /*
-
-// add city handler
-let addCityHandler = (cityName) => {
-    let citiesContainer = document.querySelector(".citiesContainer");
-    let addCity = document.querySelector(".addCity");
-    addCity.addEventListener("click", () => {
-        let newCity = document.createElement("li");
-        document.body.appendChild(newCity);
-        newCity.innerHTML = document.write = `
-                    <span>${cityName}</span>
-                    <i class="fa-solid fa-x"></i>
-                `;
-        newCity.classList.add("savedCityCard");
-        citiesContainer.prepend(newCity);
-    });
-};
-
 // edit saved cities handler
 // make it self invoked fucntion
 let savedCitiesHandler = () => {

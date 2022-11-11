@@ -205,8 +205,7 @@ main {
 }
 .timeAndDateContainer {
     display: flex;
-    justify-content: center;
-    align-items: end;
+    text-align: right;
     flex-direction: column;
     gap: 0.1em;
 }
@@ -232,6 +231,66 @@ ul li {
     display: none;
 }
 
+.savedCitiesTitle {
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin-bottom: 1em;
+}
+
+.citiesContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+.savedCityCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    background-color: #0051fd;
+    width: fit-content;
+    border-radius: 0.2em;
+    cursor: pointer;
+}
+
+.savedCityCard span {
+    padding: 0.5em 0.5em;
+}
+
+.addCity {
+    border: dashed rgba(255, 255, 255, 0.5) 0.05em;
+    border: dashed grey 0.05em;
+    opacity: 0.5;
+    padding: 0.5em;
+    width: fit-content;
+    border-radius: 0.2em;
+    cursor: pointer;
+}
+.addCity:hover {
+    border: dashed white 0.05em;
+    border: dashed black 0.05em;
+    background-color: #f3f5f7;
+    opacity: 1;
+}
+
+.deleteIconContainer {
+    padding: 0.5em;
+}
+
+.deleteIconContainer:hover {
+    background-color: #f3f5f7;
+    padding: 0.5em;
+    width: 100%;
+    height: 100%;
+}
+
+.deleteIconContainer:hover .fa-x {
+    color: grey;
+}
+
 /* -------------------------- dark theme styling */
 .darkTheme {
     background-color: #1a1c20;
@@ -254,4 +313,21 @@ ul li {
 }
 .darkTheme .miniCard::after {
     background-color: #ffffff47;
+}
+.darkTheme .savedCityCard {
+    color: black;
+    background-color: white;
+}
+.darkTheme .deleteIconContainer:hover {
+    background-color: red;
+}
+.darkTheme .deleteIconContainer:hover .fa-x {
+    color: white;
+}
+.darkTheme .addCity {
+    border: dashed rgba(255, 255, 255, 0.5) 0.05em;
+}
+.darkTheme .addCity:hover {
+    border: dashed white 0.05em;
+    background-color: transparent;
 }
