@@ -111,10 +111,10 @@ export let setBackgroundColor = (data) => {
     if (currentHour > sunrise && currentHour < sunset) {
         document.body.classList.remove("darkTheme");
         document.querySelector("link[rel='shortcut icon']").href =
-            "../assets/blue.ico";
+            "./assets/blue.ico";
     } else {
         document.body.classList.add("darkTheme");
         document.querySelector("link[rel='shortcut icon']").href =
-            "../assets/black.ico";
+            "./assets/black.ico";
     }
 };

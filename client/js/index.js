@@ -1,5 +1,5 @@
 import "./savedCities.js";
-import { displayResults, api } from "./dataGetter.js";
+import { displayResults } from "./dataGetter.js";
 
 // conditional cards display (landing card, info card, error card)
 let mainContainer = document.querySelector(".contentContainer");
@@ -13,8 +13,12 @@ export let errorContainerTriggerer = (errorInput) => {
     document.body.classList.remove("darkTheme");
     if (errorInput !== "") {
         errorMessage.innerHTML = `There is <b>no</b> city or country called "<b>${errorInput}</b>".`;
+        document.querySelector("link[rel='shortcut icon']").href =
+            "./assets/exclamation.ico";
     } else {
         errorMessage.innerHTML = `Please type a name of city or country before pressing <b>enter</b> key.`;
+        document.querySelector("link[rel='shortcut icon']").href =
+            "./assets/exclamation.ico";
     }
 };
 
@@ -25,7 +29,7 @@ addEventListener("load", () => {
         // allowed position
         (position) => {
             fetch(
-                `${api.base}weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${api.key}`
+                `http://localhost:5000/current-location?lon=${position.coords.longitude}&lat=${position.coords.latitude}`
             )
                 .then((data) => {
                     return data.json();

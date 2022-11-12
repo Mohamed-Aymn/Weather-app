@@ -1,2 +1,4 @@
-/caseStudy
-/.vercel
+.env
+node_modules
+.vercel
+caseStudy

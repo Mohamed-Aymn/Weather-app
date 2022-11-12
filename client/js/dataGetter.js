@@ -12,11 +12,6 @@ import {
 } from "./dataSetter.js";
 import { errorContainerTriggerer } from "./index.js";
 
-export const api = {
-    key: "724933b760f810a066c9e2b0a30a3306",
-    base: "https://api.openweathermap.org/data/2.5/",
-};
-
 let mainContainer = document.querySelector(".contentContainer");
 let landingContainer = document.querySelector(".landingContainer");
 let errorContainer = document.querySelector(".errorContainer");
@@ -33,7 +28,8 @@ function setQuery(e) {
 }
 
 export function getResults(query) {
-    fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+    // fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+    fetch(`http://localhost:5000/weather?city=${query}`)
         .then((data) => {
             return data.json();
         })
@@ -44,6 +40,7 @@ export function getResults(query) {
             mainContainer.classList.remove("hidden");
         })
         .catch(() => {
+            // console.log(err)
             errorContainerTriggerer(query);
         });
 }
