@@ -29,7 +29,10 @@ function setQuery(e) {
 
 export function getResults(query) {
     // fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-    fetch(`http://localhost:5000/weather?city=${query}`)
+    fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&APPID=724933b760f810a066c9e2b0a30a3306`
+    )
+        // fetch(`/weather?city=${query}`)
         .then((data) => {
             return data.json();
         })

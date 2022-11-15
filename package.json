@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "node-fetch": "^2.6.7"
+    "mime-types": "^2.1.35",
+    "node-fetch": "^2.6.7",
+    "serve-static": "^1.15.0"
   }
 }

@@ -29,8 +29,11 @@ addEventListener("load", () => {
         // allowed position
         (position) => {
             fetch(
-                `http://localhost:5000/current-location?lon=${position.coords.longitude}&lat=${position.coords.latitude}`
+                `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.latitude}&units=metric&APPID=724933b760f810a066c9e2b0a30a3306`
             )
+                // fetch(
+                //     `/current-location?lon=${position.coords.longitude}&lat=${position.coords.latitude}`
+                // )
                 .then((data) => {
                     return data.json();
                 })

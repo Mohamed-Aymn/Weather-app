@@ -55,8 +55,8 @@ export let setHumidity = (data) => {
 
 // time setter
 let time = document.querySelector(".time");
+let timeInterval;
 export let setTime = (data) => {
-    let timeInterval;
     if (timeInterval) {
         clearInterval(timeInterval);
     }
