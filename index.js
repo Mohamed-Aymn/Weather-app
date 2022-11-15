@@ -126,6 +126,11 @@ const server = http.createServer((req, res) => {
         //         }
         //     });
         //     break;
+        case "" || "/":
+            res.writeHead(200);
+            res.write("allright");
+            res.end();
+            break;
         case "/weather":
             (async function () {
                 try {
